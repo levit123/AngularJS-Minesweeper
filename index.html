@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AngularJS Minesweeper</title>
+	<!--Reference to AngularJS version 1.8-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<!--reference to my own Javascript file-->
+	<script src="./JS/script.js"></script>
+</head>
+<!--links the main content of the webpage to the "minesweeperApp" app from the "minesweeperModule" module-->
+<body ng-app="minesweeperApp">
+	<!--div container linked to the "minesweeperController" controller-->
+	<div ng-controller="minesweeperController">
+		<!--
+		Displays the "text" variable I defined in the controller
+		{{test}}
+		-->
+
+		<!--a table to display the minefield board-->
+		<table>
+			<tr ng-repeat="row in minefield.rows">
+				<td ng-repeat="spot in row.spots" ng-click="spot.isCovered = false">
+					{{spot.isCovered}}
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
