@@ -1,0 +1,10 @@
+/*styling for the overall game board*/
+.minefield {
+	line-height:  0;
+	border-spacing:  0;
+}
+
+/*styling for each square in each row of the game board*/
+.minefield td {
+	padding:  0;
+}

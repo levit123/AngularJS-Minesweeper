@@ -9,6 +9,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	<!--reference to my own Javascript file-->
 	<script src="./JS/script.js"></script>
+	<!--reference to my own CSS file-->
+	<link rel="stylesheet" type="text/css" href="./CSS/style.css">
 </head>
 <!--links the main content of the webpage to the "minesweeperApp" app from the "minesweeperModule" module-->
 <body ng-app="minesweeperApp">
@@ -20,10 +22,13 @@
 		-->
 
 		<!--a table to display the minefield board-->
-		<table>
+		<table class="minefield">
 			<tr ng-repeat="row in minefield.rows">
 				<td ng-repeat="spot in row.spots" ng-click="spot.isCovered = false">
-					{{spot.isCovered}}
+					<!--displays a graphic for a covered square if the current spot is covered-->
+					<img ng-if="spot.isCovered" src="./images/covered.png">
+					<!--displays a graphic for an empty square if the current spot is not covered-->
+					<img ng-if="!spot.isCovered" src="./images/empty.png">
 				</td>
 			</tr>
 		</table>
