@@ -2,7 +2,8 @@
 const minesweeperModule = angular.module('minesweeperApp', []);
 
 //creates the controller for the module
-const minesweeperController = function($scope) {
+const minesweeperController = function($scope)
+{
 	/*
 	//creates a string variable named "test" that holds the text "this is fine"
 	$scope.test = "This is fine."
@@ -10,6 +11,27 @@ const minesweeperController = function($scope) {
 
 	//adds the "createMinefield" function to our controller, and ties it to the variable "minefield"
 	$scope.minefield = createMinefield();
+	//adds the "uncoverSpot" function to our controller's scope, which checks if the user has uncovered a mine
+	$scope.uncoverSpot = function(spot)
+	{
+		//changes the spot to not be covered
+		spot.isCovered = false;
+
+		//if the spot contains a mine, determines that the player has lost
+		if (spot.content == "mine")
+		{
+			$scope.hasLostMessageVisible = true;
+		}
+		else
+		{
+			//calls the "hasWon" function, passing in the minefield game board, and if "hasWon"
+			//returns true, determines that the player has won
+			if (hasWon($scope.minefield))
+			{
+				$scope.isWinMessageVisible = true;
+			}
+		}
+	}
 }
 
 //links the "minesweeperModule" module to the "minesweeperController" controller
@@ -17,20 +39,23 @@ minesweeperModule.controller("minesweeperController", minesweeperController);
 
 //function for creating minefield board of the game. Starts by creating all the rows, then iterates through
 //the collection of rows, then iterating through each row, creating each square in each row
-function createMinefield() {
+function createMinefield()
+{
 	//defines the minefield and it's collection of rows of squares, starting empty
 	let minefield = {};
 	minefield.rows = [];
 
 	//initializes each row one at a time
-	for (let y = 0; y < 9; y++) {
+	for (let y = 0; y < 9; y++)
+	{
 		//defines the current row
 		let row = {};
 		//defines the collection of squares, or "spots", in the current row
 		row.spots = [];
 
 		//initializes each square, or "spot", in the current row, one square at a time
-		for (let x = 0; x < 9; x++) {
+		for (let x = 0; x < 9; x++)
+		{
 			let spot = {};
 			//starts the current square off as covered, so the player can't see what's underneath
 			spot.isCovered = true;
@@ -204,4 +229,29 @@ function calculateAllNumbers(minefield)
 			calculateNumber(minefield, x, y);
 		}
 	}
+}
+
+//function to determine if the play has won or lost. Does this by checking each remaining covered spot to see if they
+//only contain mines. If the remaining covered spots only contain mines, then that means the player has successfully
+//chosen all non-mine spots, meaning they won. Returns false if they lose, true if they won.
+function hasWon(minefield) {
+	//iterates through the columns of the minefield
+	for (let y = 0; y < 9; y++)
+	{
+		//iterates through the rows of the minefield
+		for (let x = 0; x < 9; x++)
+		{
+			//gets the spot in the minefield at the current row (x) and column (y)
+			let spot = getSpot(minefield, x, y);
+			//if there are remaining covered spots that are not mines, that means the player has lost,
+			//so it returns false
+			if (spot.isCovered && spot.content != "mine")
+			{
+				return false;
+			}
+		}
+	}
+
+	//otherwise, the player wins, so it returns true
+	return true;
 }
