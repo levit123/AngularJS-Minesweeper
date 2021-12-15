@@ -27,8 +27,19 @@
 				<td ng-repeat="spot in row.spots" ng-click="spot.isCovered = false">
 					<!--displays a graphic for a covered square if the current spot is covered-->
 					<img ng-if="spot.isCovered" src="./images/covered.png">
-					<!--displays a graphic for an empty square if the current spot is not covered-->
-					<img ng-if="!spot.isCovered" src="./images/empty.png">
+					<!--displays a graphic for an empty square if the current spot is not covered and is empty-->
+					<img ng-if="!spot.isCovered && spot.content == 'empty'" src="./images/empty.png">
+					<!--displays a graphic for a mine if the current spot is not covered and has a mine-->
+					<img ng-if="!spot.isCovered && spot.content == 'mine'" src="./images/mine.png">
+					<!--displays the number of mines that are near the current spot-->
+					<img ng-if="!spot.isCovered && spot.content == 1" src="./images/number-1.png">
+					<img ng-if="!spot.isCovered && spot.content == 2" src="./images/number-2.png">
+					<img ng-if="!spot.isCovered && spot.content == 3" src="./images/number-3.png">
+					<img ng-if="!spot.isCovered && spot.content == 4" src="./images/number-4.png">
+					<img ng-if="!spot.isCovered && spot.content == 5" src="./images/number-5.png">
+					<img ng-if="!spot.isCovered && spot.content == 6" src="./images/number-6.png">
+					<img ng-if="!spot.isCovered && spot.content == 7" src="./images/number-7.png">
+					<img ng-if="!spot.isCovered && spot.content == 8" src="./images/number-8.png">
 				</td>
 			</tr>
 		</table>
